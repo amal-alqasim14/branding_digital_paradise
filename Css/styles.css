@@ -240,7 +240,7 @@ p{ line-height: 1.6; }
   background: var(--panel);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: var(--radius-lg);
-  padding: 34px;
+  padding: 22px;
   box-shadow: 0 30px 90px rgba(0,0,0,0.30);
   /* overflow: visible;  */
   /* important: don't clip lifted photos */
@@ -271,11 +271,13 @@ p{ line-height: 1.6; }
 /* Grid that photos land into (FINAL STATE) */
 #projectgrid{
 display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   /* gap: 14px;      */
   /* was 100px -> fixed */
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 #projectgrid > div{
