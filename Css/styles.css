@@ -181,7 +181,7 @@ p{ line-height: 1.6; }
   box-shadow: 0 30px 90px rgba(0,0,0,0.30);
 
   display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  /* grid-template-columns: 1.1fr 0.9fr; */
   gap: 22px;
   align-items: start;
 }
@@ -211,7 +211,7 @@ p{ line-height: 1.6; }
 }
 
 /* Collage stage (visual target area for the floating photos) */
-.collage-stage{
+/* .collage-stage{
   position: relative;
   border-radius: 24px;
   border: 1px dashed rgba(255,255,255,0.16);
@@ -233,7 +233,7 @@ p{ line-height: 1.6; }
 .collage-hint .arrow{
   color: var(--accent);
   font-size: 1.1rem;
-}
+} */
 
 /* MEDIA */
 .projects-section{
@@ -242,7 +242,8 @@ p{ line-height: 1.6; }
   border-radius: var(--radius-lg);
   padding: 34px;
   box-shadow: 0 30px 90px rgba(0,0,0,0.30);
-  overflow: visible; /* important: don't clip lifted photos */
+  overflow: visible; 
+  /* important: don't clip lifted photos */
 }
 
 .section-head{
