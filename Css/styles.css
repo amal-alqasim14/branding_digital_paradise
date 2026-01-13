@@ -242,7 +242,7 @@ p{ line-height: 1.6; }
   border-radius: var(--radius-lg);
   padding: 34px;
   box-shadow: 0 30px 90px rgba(0,0,0,0.30);
-  overflow: visible; 
+  /* overflow: visible;  */
   /* important: don't clip lifted photos */
 }
 
@@ -270,9 +270,11 @@ p{ line-height: 1.6; }
 
 /* Grid that photos land into (FINAL STATE) */
 #projectgrid{
-  display:grid;
+display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;     /* was 100px -> fixed */
+  gap: 16px;
+  /* gap: 14px;      */
+  /* was 100px -> fixed */
   margin-top: 10px;
 }
 
@@ -300,9 +302,9 @@ p{ line-height: 1.6; }
    START POSITIONS (COLLAGE IN BIO)
    You can tweak --scale to make them smaller/bigger next to Bio.
    =============================== */
-#projectgrid>div:nth-child(1){
+/* #projectgrid>div:nth-child(1){
   --rotation: 6deg;
-  --scale: 0.60; /* smaller in Bio */
+  --scale: 0.60; smaller in Bio
   --position-x: clamp(160px, 26vw, 380px);
   --position-y: clamp(-880px, -95vh, -680px);
   transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
@@ -327,7 +329,7 @@ p{ line-height: 1.6; }
   --position-x: 0px;
   --position-y: clamp(-1120px, -125vh, -900px);
   transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
-}
+} */
 
 /* SPOTIFY */
 .spotify_section{
@@ -470,7 +472,7 @@ p{ line-height: 1.6; }
 .contact-grid{
   margin-top: 18px;
   display:grid;
-  /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -506,15 +508,15 @@ p{ line-height: 1.6; }
   .section-head{ flex-direction: column; align-items: flex-start; }
 }
 
-/* @media (max-width: 900px){
-  .bio-card{ grid-template-columns: 1fr; }
-  .collage-stage{ min-height: 320px; }
-} */
+@media (max-width: 900px){
+  /* .bio-card{ grid-template-columns: 1fr; }
+  .collage-stage{ min-height: 320px; } */
+}
 
-/* @media (max-width: 620px){
+@media (max-width: 620px){
   main{ width: min(var(--max), calc(100% - 28px)); }
   .nav{ flex-direction: column; align-items: flex-start; }
-  /* #projectgrid{ grid-template-columns: 1fr; } */
+  /* #projectgrid{ grid-template-columns: 1fr; }
 
   /* Mobile: less extreme start offsets */
   /* #projectgrid>div:nth-child(1),
@@ -522,8 +524,8 @@ p{ line-height: 1.6; }
     --position-x: 0px;
     --position-y: -520px;
     --scale: 0.72;
-  }
-  #projectgrid>div:nth-child(3),
+  } */
+  /* #projectgrid>div:nth-child(3),
   #projectgrid>div:nth-child(4){
     --position-x: 0px;
     --position-y: -760px;
@@ -532,4 +534,4 @@ p{ line-height: 1.6; }
 
   .music-buttons{ grid-template-columns: 1fr; }
   .contact-grid{ grid-template-columns: 1fr; }
-} */
+} 
