@@ -1,10 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/transcity');
 
-.container {
-  width: min(90%, 1200px);
-  margin-inline: auto;
-}
-
 :root {
   --bg: #222222;
   --panel: rgba(255, 255, 255, 0.04);
