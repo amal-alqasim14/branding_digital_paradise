@@ -1,61 +1,109 @@
+
 (() => {
+  // --- DOM elements ophalen ---
   const bio = document.querySelector("#bio");
-  const projects = document.querySelector("#projects");
-  const projectElements = document.querySelectorAll("#projects #projectgrid > div");
+  const tiles = document.querySelectorAll("#projectgrid > div");
 
-  if (!bio || !projects || projectElements.length === 0) return;
+  // Als er iets ontbreekt: stop stilletjes (voorkomt errors in console)
+  if (!bio || tiles.length === 0) return;
 
-  const clamp = (num, a, b) => Math.max(Math.min(num, Math.max(a,b)), Math.min(a,b));
+  /**
+   * clamp01
+   * Houdt een waarde altijd tussen 0 en 1.
+   * (Handig voor progress-berekeningen)
+   */
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
   let ticking = false;
 
+  /**
+   * getProgress
+   * Berekent hoe ver we zijn met scrollen (0..1).
+   *
+   * 0  = Bio staat net tegen de top (start animatie)
+   * 1  = ongeveer 0.9 viewport verder gescrold (animatie klaar)
+   */
   function getProgress() {
-    const bioRect = bio.getBoundingClientRect();
-    const projRect = projects.getBoundingClientRect();
+    const bioTop = bio.getBoundingClientRect().top;
     const vh = window.innerHeight || 1;
 
-    // Start when Bio is on screen, finish when Projects hits near top
-    const start = 0;                 // bioRect.top around 0 when bio reaches top
-    const end = vh * 0.9;            // when projects approaches view
-    // We want progress to increase as you scroll down:
-    // Use bioRect.top moving negative as you scroll.
-    const raw = (-bioRect.top) / end;
-    return clamp(raw, 0, 1);
+    // bioTop wordt negatief als je naar beneden scrollt.
+    // We maken daarvan een 0..1 progress.
+    return clamp01((-bioTop) / (vh * 0.9));
   }
 
+  /**
+   * smoothstep easing
+   * Maakt de animatie minder "robotisch":
+   * - start rustig
+   * - versnelt in het midden
+   * - eindigt rustig
+   */
+  function smoothstep(t) {
+    return t * t * (3 - 2 * t);
+  }
+
+  /**
+   * update
+   * Past transform toe op elke tile op basis van scroll-progress.
+   *
+   * Interpolatie:
+   *  - translate: van baseX/baseY -> 0
+   *  - rotate: van baseRotation -> 0
+   *  - scale: van baseScale -> 1
+   */
   function update() {
     const p = getProgress();
-    // smoothstep easing
-    const ease = p * p * (3 - 2 * p);
+    const ease = smoothstep(p);
 
-    projectElements.forEach((el) => {
-      const styles = window.getComputedStyle(el);
+    tiles.forEach((el) => {
+      // Lees CSS custom properties van dit element
+      const styles = getComputedStyle(el);
 
       const baseRotation = parseFloat(styles.getPropertyValue("--rotation")) || 0;
       const baseScale = parseFloat(styles.getPropertyValue("--scale")) || 1;
       const baseX = parseFloat(styles.getPropertyValue("--position-x")) || 0;
       const baseY = parseFloat(styles.getPropertyValue("--position-y")) || 0;
 
-      const x = baseX + (0 - baseX) * ease;
-      const y = baseY + (0 - baseY) * ease;
-      const r = baseRotation + (0 - baseRotation) * ease;
+      // Interpolatie naar eindpositie
+      const x = baseX * (1 - ease);
+      const y = baseY * (1 - ease);
+      const r = baseRotation * (1 - ease);
       const s = baseScale + (1 - baseScale) * ease;
 
+      // 1 transform string is sneller dan meerdere style properties
       el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`;
     });
 
     ticking = false;
   }
 
+  /**
+   * onScroll
+   * Gebruik requestAnimationFrame zodat we nooit meer dan 1 update per frame doen.
+   * Dit voorkomt jank/lag op mobiel.
+   */
   function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
   }
 
-  // init
+  // --- Init: zet meteen de juiste startpositie ---
   update();
+
+  // --- Events ---
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", () => { update(); }, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
 })();
+
+
+/**
+ * year.js
+ * --------
+ * Zet automatisch het huidige jaar in de footer.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.getElementById("year");
+  if (el) el.textContent = new Date().getFullYear();
+});

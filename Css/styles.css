@@ -1,46 +1,41 @@
-@import url('https://fonts.cdnfonts.com/css/transcity');
+
+/* FONTS */
+@import url("https://fonts.cdnfonts.com/css/transcity");
 
 :root {
   --bg: #222222;
   --panel: rgba(255, 255, 255, 0.04);
-  --panel2: rgba(255, 255, 255, 0.06);
   --stroke: rgba(255, 255, 255, 0.10);
+
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.66);
 
-  --highlight: #FF8B26;
-  --accent: #FFF5B5;
+  --highlight: #ff8b26; /* accent orange */
+  --accent: #fff5b5;    /* cream/gold text */
 
   --radius: 26px;
   --radius-lg: 34px;
   --max: 1100px;
 }
 
-/* reset */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+   /* BASE TYPOGRAPHY + LAYOUT */
 html {
   font-size: 18px;
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
 }
 
-h2,
-h1,
-h3 {
-  font-family: "Transcity", sans-serif;
-  font-weight: normal;
-  color: #FFF5B5;
-  letter-spacing: 0.05em;
-}
-
-
 body {
-  background: radial-gradient(1200px 600px at 20% 0%, rgba(246, 94, 5, 0.18), transparent 55%),
+  /* Background: 2 radial glows + base color */
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(246, 94, 5, 0.18), transparent 55%),
     radial-gradient(900px 500px at 90% 20%, rgba(255, 185, 7, 0.14), transparent 55%),
     var(--bg);
   color: var(--text);
@@ -60,6 +55,14 @@ section {
   color: var(--muted);
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Transcity", sans-serif;
+  font-weight: normal;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
 
 h2 {
   font-size: 2.1rem;
@@ -70,72 +73,55 @@ p {
   line-height: 1.6;
 }
 
-/* HEADER */
+/* HEADER + NAV */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
+
+  /* Semi transparant + blur geeft “glass” look */
   background: rgba(34, 34, 34, 0.78);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid var(--stroke);
 }
 
 .nav {
   width: min(var(--max), calc(100% - 48px));
   margin: 0 auto;
   padding: 14px 0;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
-/* --- LOGO ANIMATION (Glitch Effect) --- */
+/* Logo glitch animatie */
 @keyframes digitalGlitch {
-  0% {
+  0%, 80%, 100% {
     transform: skew(0deg);
     filter: none;
   }
-
-  80% {
-    transform: skew(0deg);
-    filter: none;
-  }
-
   85% {
     transform: skew(-5deg);
-    filter: drop-shadow(4px 0px 0px #FF8B26) drop-shadow(-4px 0px 0px #FFF5B5);
+    filter: drop-shadow(4px 0 0 #ff8b26) drop-shadow(-4px 0 0 #fff5b5);
   }
-
   90% {
     transform: skew(5deg);
-    filter: drop-shadow(-4px 0px 0px #FF8B26) drop-shadow(4px 0px 0px #FFF5B5);
+    filter: drop-shadow(-4px 0 0 #ff8b26) drop-shadow(4px 0 0 #fff5b5);
   }
-
   95% {
     transform: skew(-2deg);
-    filter: drop-shadow(2px 0px 0px #FF8B26);
-  }
-
-  100% {
-    transform: skew(0deg);
-    filter: none;
+    filter: drop-shadow(2px 0 0 #ff8b26);
   }
 }
 
 .logo img {
   height: 90px;
-  width: auto;
   display: block;
   filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.35));
   animation: digitalGlitch 3s infinite;
 }
-
-.logo img:hover {
-  filter: drop-shadow(0 0 5px var(--neon-pink));
-  transition: 0.3s;
-}
-
 
 .nav-links {
   list-style: none;
@@ -147,13 +133,13 @@ p {
 
 .nav-links a {
   text-decoration: none;
-    font-family: "Transcity", sans-serif;
+  font-family: "Transcity", sans-serif;
   font-weight: normal;
-  /* color: #FFF5B5; */
   color: azure;
   letter-spacing: 0.05em;
-  font-size: 1.20rem;
-  padding: 5px 5px;
+  font-size: 1.2rem;
+
+  padding: 5px;
   border-radius: 14px;
   border: 1px solid transparent;
 }
@@ -170,7 +156,7 @@ p {
 
 .hero-inner {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   border-radius: var(--radius-lg);
   padding: 46px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
@@ -178,11 +164,13 @@ p {
   overflow: hidden;
 }
 
+/* Glow overlay binnen hero-card */
 .hero-inner::before {
   content: "";
   position: absolute;
   inset: -2px;
-  background: radial-gradient(600px 260px at 20% 20%, rgba(246, 94, 5, 0.30), transparent 55%),
+  background:
+    radial-gradient(600px 260px at 20% 20%, rgba(246, 94, 5, 0.30), transparent 55%),
     radial-gradient(600px 260px at 85% 10%, rgba(255, 185, 7, 0.18), transparent 55%);
   opacity: 0.7;
   pointer-events: none;
@@ -190,7 +178,6 @@ p {
 
 .kicker {
   position: relative;
-  /* color: var(--accent); */
   font-weight: 800;
   font-size: 0.95rem;
   text-transform: uppercase;
@@ -225,9 +212,11 @@ p {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+
   font-weight: 800;
   padding: 14px 18px;
   border-radius: 18px;
+
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
@@ -235,41 +224,41 @@ p {
 
 .btn-primary {
   border-color: rgba(246, 94, 5, 0.45);
-  background: linear-gradient(180deg, #FF8B26, #FF8B26);
+  background: linear-gradient(180deg, var(--highlight), var(--highlight));
   color: #202020;
 }
 
-.btn-primary:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.92);
-}
-
+.btn-primary:hover,
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.07);
 }
 
-/* BIO */
+.btn-primary:hover {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* BIO + CARDS */
 .bio-section {
   padding-top: 40px;
 }
 
 .bio-card {
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   border-radius: var(--radius-lg);
+
   padding: 28px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.30);
 
   display: grid;
-  /* grid-template-columns: 1.1fr 0.9fr; */
   gap: 22px;
-  align-items: start;
 }
 
 .bio-text p {
   margin-top: 12px;
 }
 
+/* Pills */
 .bio-meta {
   margin-top: 18px;
   display: flex;
@@ -292,40 +281,18 @@ p {
   flex-wrap: wrap;
 }
 
-/* Collage stage (visual target area for the floating photos) */
-/* .collage-stage{
-  position: relative;
-  border-radius: 24px;
-  border: 1px dashed rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.03);
-  min-height: 360px;
-  overflow: visible;
-}
-
-.collage-hint{
-  position:absolute;
-  right: 16px;
-  bottom: 14px;
-  display:flex;
-  gap: 10px;
-  align-items:center;
-  font-weight: 700;
-  opacity: 0.85;
-}
-.collage-hint .arrow{
-  color: var(--accent);
-  font-size: 1.1rem;
-} */
-
-/* MEDIA */
+/* -------------------------------------------------------
+   GALLERY (Project Grid)
+   Belangrijk:
+   - JS leest custom properties per tile (start positie)
+   - Tijdens scroll worden ze naar 0/1 geanimeerd
+   ------------------------------------------------------- */
 .projects-section {
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   border-radius: var(--radius-lg);
   padding: 22px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.30);
-  /* overflow: visible;  */
-  /* important: don't clip lifted photos */
 }
 
 .section-head {
@@ -350,7 +317,7 @@ p {
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* Grid that photos land into (FINAL STATE) */
+/* Definitieve grid layout */
 #projectgrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -359,17 +326,25 @@ p {
   margin-inline: auto;
 }
 
-#projectgrid>div {
+#projectgrid > div {
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+
+  /* Performance hint: we gaan transform animeren */
   will-change: transform;
-  transform-origin: center center;
+  transform-origin: center;
 
   /* consistent tiles */
   aspect-ratio: 1 / 1;
+
+  /* Defaults (als safety, zodat JS nooit NaN krijgt) */
+  --rotation: 0;
+  --scale: 1;
+  --position-x: 0;
+  --position-y: 0;
 }
 
 #projectgrid img {
@@ -379,40 +354,39 @@ p {
   object-fit: cover;
 }
 
-/* ===============================
-   START POSITIONS (COLLAGE IN BIO)
-   You can tweak --scale to make them smaller/bigger next to Bio.
-   =============================== */
-/* #projectgrid>div:nth-child(1){
-  --rotation: 6deg;
-  --scale: 0.60; smaller in Bio
+/* Start posities (collage-look bij de Bio)
+   TIP: speel met --position-y en --scale voor meer/minder overlap */
+#projectgrid > div:nth-child(1) {
+  --rotation: 6;
+  --scale: 0.6;
   --position-x: clamp(160px, 26vw, 380px);
   --position-y: clamp(-880px, -95vh, -680px);
-  transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
 }
-#projectgrid>div:nth-child(2){
-  --rotation: -6deg;
+
+#projectgrid > div:nth-child(2) {
+  --rotation: -6;
   --scale: 0.58;
   --position-x: 0px;
   --position-y: clamp(-880px, -95vh, -680px);
-  transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
 }
-#projectgrid>div:nth-child(3){
-  --rotation: 8deg;
+
+#projectgrid > div:nth-child(3) {
+  --rotation: 8;
   --scale: 0.56;
   --position-x: clamp(150px, 25vw, 360px);
   --position-y: clamp(-1120px, -125vh, -900px);
-  transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
 }
-#projectgrid>div:nth-child(4){
-  --rotation: 4deg;
+
+#projectgrid > div:nth-child(4) {
+  --rotation: 4;
   --scale: 0.55;
   --position-x: 0px;
   --position-y: clamp(-1120px, -125vh, -900px);
-  transform: translate(var(--position-x), var(--position-y)) scale(var(--scale)) rotate(var(--rotation));
-} */
+}
 
-/* SPOTIFY */
+/* -------------------------------------------------------
+   SPOTIFY + SOUNDCLOUD
+   ------------------------------------------------------- */
 .spotify_section {
   display: grid;
   gap: 18px;
@@ -422,7 +396,7 @@ p {
 .spotify-wrap,
 .soundcloud-wrap {
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   background: rgba(255, 255, 255, 0.03);
   padding: 16px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
@@ -433,16 +407,9 @@ p {
   margin-bottom: 12px;
 }
 
-.spotify-head h3,
-.soundcloud-head h3 {
-  font-size: 1.15rem;
-  margin-bottom: 6px;
-}
-
-/* Spotify */
+/* spotify */
 .spotify-embed {
   border-radius: 16px;
-  overflow: hidden;
   border: 0;
   display: block;
   background-color: #222222;
@@ -452,12 +419,10 @@ p {
 .soundcloud-embed {
   width: 100%;
   height: 180px;
-  /* ideaal voor DJ sets */
   border-radius: 16px;
   border: 0;
   background: #0e0e0e;
 }
-
 
 @media (min-width: 900px) {
   .spotify_section {
@@ -469,7 +434,7 @@ p {
 /* MUSIC */
 .music-section {
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   border-radius: var(--radius-lg);
   padding: 34px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.30);
@@ -488,7 +453,7 @@ p {
   padding: 16px 18px;
   border-radius: 18px;
   border: 1px solid rgba(255, 185, 7, 0.40);
-  background: linear-gradient(180deg, #FF8B26, #FF8B26);
+  background: linear-gradient(180deg, var(--highlight), var(--highlight));
   color: #202020;
   box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
 
@@ -497,38 +462,20 @@ p {
   justify-content: center;
 }
 
-/* FFF5B5 */
 .music-btn:hover {
   filter: brightness(1.05);
-}
-
-.embed-card {
-  margin-top: 18px;
-  padding: 18px;
-  border-radius: 18px;
-  border: 1px dashed rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.03);
 }
 
 .youtube-wrap {
   margin-top: 18px;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   background: rgba(255, 255, 255, 0.03);
   padding: 16px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
 }
 
-.youtube-head {
-  margin-bottom: 12px;
-}
-
-.youtube-head h3 {
-  font-size: 1.15rem;
-  margin-bottom: 6px;
-}
-
-/* Responsive 16:9 embed */
+/* Responsive 16:9 video container */
 .youtube-embed {
   position: relative;
   width: 100%;
@@ -555,7 +502,7 @@ p {
 
 .contact-card {
   background: var(--panel);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--stroke);
   border-radius: var(--radius-lg);
   padding: 34px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.30);
@@ -572,7 +519,7 @@ p {
   color: var(--text);
   text-decoration: none;
   font-weight: 800;
-  padding: 14px 14px;
+  padding: 14px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
@@ -603,11 +550,6 @@ p {
   }
 }
 
-@media (max-width: 900px) {
-  /* .bio-card{ grid-template-columns: 1fr; }
-  .collage-stage{ min-height: 320px; } */
-}
-
 @media (max-width: 620px) {
   main {
     width: min(var(--max), calc(100% - 28px));
@@ -617,22 +559,6 @@ p {
     flex-direction: column;
     align-items: flex-start;
   }
-
-  /* #projectgrid{ grid-template-columns: 1fr; }
-
-  /* Mobile: less extreme start offsets */
-  /* #projectgrid>div:nth-child(1),
-  #projectgrid>div:nth-child(2){
-    --position-x: 0px;
-    --position-y: -520px;
-    --scale: 0.72;
-  } */
-  /* #projectgrid>div:nth-child(3),
-  #projectgrid>div:nth-child(4){
-    --position-x: 0px;
-    --position-y: -760px;
-    --scale: 0.70;
-  } */
 
   .music-buttons {
     grid-template-columns: 1fr;
